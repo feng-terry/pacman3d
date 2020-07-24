@@ -7,8 +7,9 @@ Description: 	This game is Pac-Man, but in 3D. There are 2 modes: Play and Debug
 		for viusalization of the AI of the ghosts eaiser. Use arrow keys
 		to play.
 
-How to Run:	1. Run main.py, with ai.py, character.py, cmu_112_graphics.py, helper.py, and rayCast.py in the same folder
-		2. Press [s] to play in Play mode. Press [d] to play in Debug mode.
+How to Run:	
+1. Run main.py, with ai.py, character.py, cmu_112_graphics.py, helper.py, and rayCast.py in the same folder
+2. Press [s] to play in Play mode. Press [d] to play in Debug mode.
 
 Libraries: 	cmu_112_graphics.py
 
