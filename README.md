@@ -44,6 +44,6 @@ Chase Mode:
 			If Clide is inside this radius
 				Target cell is Clyde's Scatter Mode target cell in the bototm left corner
 
-*For more imformation on the AI of the ghosts, consult writeUp.txt in the folder Demo_for_tp2*
+*For more imformation on the AI of the ghosts, consult writeUp.txt*
 
 
