@@ -1,0 +1,83 @@
+Pac Man 3D by Terry Feng
+
+Ray Casting
+
+	Background
+ 	- Game model is a 2D grid
+		- Pacman is a particle with 8 collision nodes around it
+		- Pacman has a FOV and an absolute angle (aka not relative to anything but the grid)
+
+	Algorithim
+	- For every angle in Pac Man's FOV and starting from Pac Man's (x,y) coords
+		-You cast out a RAY (A moving point in a while loop)
+			-Increase PAC's (x,y) by cos(angle) and sin(angle) respectively
+			-Every time the RAY's (x,y) updates you check to see if its in a wall cell
+			-Exit loop when hit wall
+		-When the RAY hits a wall cell
+			-Record the perpendicular distance to pacman
+		-Draw the wall(a vertical rectangle) on screen 
+			-width = screenWidth/# of angles in FOV
+			-cx = width * (i|The number of the RAY | first ray cast = 1, second ray cast = 2,...)
+			-height is an inverse proportional relationship with the perpendicular distance
+		-Repeat
+
+	-Entities
+		-Drawing pills and ghosts are found a bit differiently from walls
+			-instead of checking if the RAY's (x,y) is in a Pill Cell/Ghost Cell
+				-It checks if the RAY's (x,y) in within a certain error of the middle of such a cell
+				-This ensures that the (i|The number of the RAY) that detects the entity is the most accurate one to use to draw on the screen
+				-This allows the entities to be drawin in the middle of the hallway
+			-instead of exiting the RAY's loop when hitting an entity
+				-the entity is added to a dictionary| key = perp. distance, value = (i|the number of ray,color of eneity)
+
+Ghost AI
+
+	Background
+	-Ghosts have 3 modes and they will change their target cell based on which mode they are in
+		-Chase
+		-Scatter
+		-Frightened
+
+	General Pathfinding
+	-Ghosts have a occupied cell and a direction (This means their next move is determined)
+	-Every time they are told to move
+		-They "look ahead" into their next move (which is predetermined)
+		-They generate a list of possible moves from this "look ahead position"
+			-Not walls
+			-Not the cell they are actually in (So no turing around)
+		-They choose the move with the lowest euclidean distance to their target cell
+		-They move into their "look ahead" position
+		-They update their direction to match the next move they just chose
+		-Repeat
+
+	Target Dertermination
+		Scatter Mode
+			-In scatter mode each ghost has a target cell off screen 
+			-This makes them go to their respective corners where such target cell is located
+			-They do circles around the corner wall pieces as they cant turn around
+
+		Chase Mode
+		-Blinky (Red Ghost)
+			-Target cell is Pac Man's cell
+			-*Special Case when there are <20 pellets remaining* --> Scatter Mode target cell also becomes Pac Man's Cell
+
+		-Pinky (Pink Ghost)
+			-Target cell is 4 cells infront of Pacman (in the direction he is facing)(Direction found by doing sin/cos inequalities using Pac Man's angle)
+			-Due to a bug in the orginal PacMan, when Pac Man is facing up, Pinky's target cell will be 4 up and 4 left of pacman (This is included in my game)
+
+		-Inky (Teal Ghost)
+			-With Pinky's algorthim, a intermediate cell is determined 2 cells infront of Pac Man
+			-A line segment is created from Blinky's cell to this intermediate cell
+			-Inky's target cell is the cell that is in the endpoint of the line segment that is twice the length of the line segment just determined
+				-AKA the intermediate cell is the midpoint between Inky's target cell and Blinky's occupied cell
+		-Clyde (Orange Ghost)
+			-If Clyde is outside an 8 tile circular radius centered at Pac Man
+				-Target cell is Pac Man's cell
+			-If Clide is inside this radius
+				-Target cell is Clyde's Scatter Mode target cell in the bototm left corner
+
+		Frightened Mode (I have yet to code)
+			-When frightened (AKA edible by pacman) all ghosts move in their direction until they reach an intersection
+			-Then they randomly choose a direction to turn
+			-Repeat
+
