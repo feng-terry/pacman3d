@@ -10,19 +10,24 @@ How to Run:	1. Run main.py, with ai.py, character.py, cmu_112_graphics.py, helpe
 
 Libraries: 	cmu_112_graphics.py
 
-
 Debug Mode Legend:
 
 [G] 		--> Ghosts
+
 [T] 		--> Target Cell
+
 [?] 		--> Possible cells for next move
+
 [I] 		--> Intermediate Cell (Inky Only)
+
 Red Line 	--> Blinky to Inky's Target Cell visualization
+
 Orange Circle	--> Clyde's Zone visualization
 
 Frightened Mode: Ghosts move in their direction until an intersection, then they choose a random direction and continue.
 Scatter Mode: Ghosts each have a specific target cell off screen.
 Chase Mode:
+
 	Blinky(Red): 	Target cell is Pac Man's cell
 		     	If <20 pellets left, Scatter Mode target cell is also Pac Man's cell
 
